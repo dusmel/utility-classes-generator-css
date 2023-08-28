@@ -1,6 +1,6 @@
 const { omit } = require("lodash");
-const { colors, sizeScale, fonts } = require("./base");
-const { space } = require("./spacing");
+const { colors, sizeScale, fonts } = require("./src/base");
+const { space } = require("./src/spacing");
 
 module.exports = {
   colors,

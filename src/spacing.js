@@ -1,7 +1,7 @@
-const { forEach, isArray, omit } = require("lodash");
+const { forEach, isArray, omit, reduce } = require("lodash");
 const { sizeScale } = require("./base");
 
-const baseSpacing =  {
+const baseSpacing = {
   padding: {
     variants: omit(sizeScale, "auto"),
     properties: [
@@ -29,26 +29,24 @@ const baseSpacing =  {
 };
 
 function getSpacingVariants(spacing) {
-  let variants = {};
+  const variants = {};
   forEach(spacing, (value, cssKey) => {
     value.properties.forEach((variant) => {
       const key = isArray(variant) ? variant[0] : variant;
       const suffix = isArray(variant) ? `-${variant[1]}` : "";
-      variants = {
-        ...variants,
-        [key]: {
-          items: value.variants,
-          output: "standard",
-          property: cssKey + suffix,
-        },
-      };
+      variants[key] = {
+        items: value.variants,
+        output: "standard",
+        property: cssKey + suffix,
+      }
     });
   });
 
   return variants;
+
 }
 
 module.exports = {
   baseSpacing,
   space: getSpacingVariants(baseSpacing),
-}
+};
